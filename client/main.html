@@ -1,0 +1,110 @@
+<head>
+    <title>Note taker</title>
+    <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,width=device-width,height=device-height,target-densitydpi=device-dpi,user-scalable=no" />
+</head>
+
+
+<template name="scheleton">
+	{{> yield "navigation"}}
+	<div class="ui page grid">
+		<div class="centered row">
+			<br>
+		</div>
+
+		<div class="centered row">
+			{{> yield}}
+		</div>
+	</div>
+
+</template>
+
+<template name="home">
+	<div class="three wide centered column">
+		<div class="ui segment attached">
+			<div class="ui statistics">
+				<div class="statistic">
+					<div class="value">
+						{{total}}
+					</div>
+					<div class="label">
+						Notes on the system
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="note">
+	<div class="sixteen wide centered column">
+		<div class="ui segment">
+			<h1 class="ui dividing header"> {{title}}
+			<div class="sub header">
+				{{niceDate timestamp}}
+			</div></h1>
+			<p>
+				{{text}}
+			</p>
+		</div>
+		<div class="ui negative button">
+			Delete
+		</div>
+	</div>
+</template>
+
+<template name="newNote">
+	<div class="ui modal">
+		<div class="content">
+			<div class="ui form">
+				<div class="ui error message"></div>
+				<div class="field">
+					<label>Title</label>
+					<input name='title' id="title" type="text">
+				</div>
+				<div class="field">
+					<label>Note</label>
+					<textarea name='note' id="note"></textarea>
+				</div>
+				<div class="ui positive submit button">
+					Save
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="navigation">
+	<div class="ui inverted attached menu">
+		<a class="item" href="/"> <i class="home icon"></i> Home </a>
+		<a class="item" href="/notes"><i class="mail icon"></i> Notes </a>
+		<a class="item newNote"><i class="add icon"></i> New note </a>
+	</div>
+</template>
+
+<template name="miniNote">
+	<div class="ui segment">
+		<a href="/notes/{{_id}}"><h3 class="ui dividing header"> {{title}}
+		<div class="sub header">
+			{{niceDate timestamp}}
+		</div></h3></a>
+		<p>
+			{{note}}
+		</p>
+	</div>
+</template>
+
+<template name="notes">
+	<div class="sixteen wide centered column">
+		{{#each notes}}
+		{{> miniNote}}
+		{{/each}}
+	</div>
+</template>
+
+<template name="loading">
+	<div class="ui active dimmer">
+		<div class="ui large text loader">
+			Loading
+		</div>
+	</div>
+</template>
